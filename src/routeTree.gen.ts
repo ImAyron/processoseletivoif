@@ -9,38 +9,207 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RoteiroRouteImport } from './routes/roteiro'
+import { Route as PontosRouteImport } from './routes/pontos'
+import { Route as MapaRouteImport } from './routes/mapa'
+import { Route as HistoriaRouteImport } from './routes/historia'
+import { Route as GaleriaRouteImport } from './routes/galeria'
+import { Route as ChatRouteImport } from './routes/chat'
+import { Route as AgendaRouteImport } from './routes/agenda'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PontosSlugRouteImport } from './routes/pontos.$slug'
+import { Route as ApiChatRouteImport } from './routes/api/chat'
 
+const RoteiroRoute = RoteiroRouteImport.update({
+  id: '/roteiro',
+  path: '/roteiro',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PontosRoute = PontosRouteImport.update({
+  id: '/pontos',
+  path: '/pontos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MapaRoute = MapaRouteImport.update({
+  id: '/mapa',
+  path: '/mapa',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HistoriaRoute = HistoriaRouteImport.update({
+  id: '/historia',
+  path: '/historia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GaleriaRoute = GaleriaRouteImport.update({
+  id: '/galeria',
+  path: '/galeria',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChatRoute = ChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgendaRoute = AgendaRouteImport.update({
+  id: '/agenda',
+  path: '/agenda',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PontosSlugRoute = PontosSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => PontosRoute,
+} as any)
+const ApiChatRoute = ApiChatRouteImport.update({
+  id: '/api/chat',
+  path: '/api/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/agenda': typeof AgendaRoute
+  '/chat': typeof ChatRoute
+  '/galeria': typeof GaleriaRoute
+  '/historia': typeof HistoriaRoute
+  '/mapa': typeof MapaRoute
+  '/pontos': typeof PontosRouteWithChildren
+  '/roteiro': typeof RoteiroRoute
+  '/api/chat': typeof ApiChatRoute
+  '/pontos/$slug': typeof PontosSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/agenda': typeof AgendaRoute
+  '/chat': typeof ChatRoute
+  '/galeria': typeof GaleriaRoute
+  '/historia': typeof HistoriaRoute
+  '/mapa': typeof MapaRoute
+  '/pontos': typeof PontosRouteWithChildren
+  '/roteiro': typeof RoteiroRoute
+  '/api/chat': typeof ApiChatRoute
+  '/pontos/$slug': typeof PontosSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/agenda': typeof AgendaRoute
+  '/chat': typeof ChatRoute
+  '/galeria': typeof GaleriaRoute
+  '/historia': typeof HistoriaRoute
+  '/mapa': typeof MapaRoute
+  '/pontos': typeof PontosRouteWithChildren
+  '/roteiro': typeof RoteiroRoute
+  '/api/chat': typeof ApiChatRoute
+  '/pontos/$slug': typeof PontosSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/agenda'
+    | '/chat'
+    | '/galeria'
+    | '/historia'
+    | '/mapa'
+    | '/pontos'
+    | '/roteiro'
+    | '/api/chat'
+    | '/pontos/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/agenda'
+    | '/chat'
+    | '/galeria'
+    | '/historia'
+    | '/mapa'
+    | '/pontos'
+    | '/roteiro'
+    | '/api/chat'
+    | '/pontos/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/agenda'
+    | '/chat'
+    | '/galeria'
+    | '/historia'
+    | '/mapa'
+    | '/pontos'
+    | '/roteiro'
+    | '/api/chat'
+    | '/pontos/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AgendaRoute: typeof AgendaRoute
+  ChatRoute: typeof ChatRoute
+  GaleriaRoute: typeof GaleriaRoute
+  HistoriaRoute: typeof HistoriaRoute
+  MapaRoute: typeof MapaRoute
+  PontosRoute: typeof PontosRouteWithChildren
+  RoteiroRoute: typeof RoteiroRoute
+  ApiChatRoute: typeof ApiChatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/roteiro': {
+      id: '/roteiro'
+      path: '/roteiro'
+      fullPath: '/roteiro'
+      preLoaderRoute: typeof RoteiroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pontos': {
+      id: '/pontos'
+      path: '/pontos'
+      fullPath: '/pontos'
+      preLoaderRoute: typeof PontosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mapa': {
+      id: '/mapa'
+      path: '/mapa'
+      fullPath: '/mapa'
+      preLoaderRoute: typeof MapaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/historia': {
+      id: '/historia'
+      path: '/historia'
+      fullPath: '/historia'
+      preLoaderRoute: typeof HistoriaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/galeria': {
+      id: '/galeria'
+      path: '/galeria'
+      fullPath: '/galeria'
+      preLoaderRoute: typeof GaleriaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chat': {
+      id: '/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof ChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agenda': {
+      id: '/agenda'
+      path: '/agenda'
+      fullPath: '/agenda'
+      preLoaderRoute: typeof AgendaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +217,45 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pontos/$slug': {
+      id: '/pontos/$slug'
+      path: '/$slug'
+      fullPath: '/pontos/$slug'
+      preLoaderRoute: typeof PontosSlugRouteImport
+      parentRoute: typeof PontosRoute
+    }
+    '/api/chat': {
+      id: '/api/chat'
+      path: '/api/chat'
+      fullPath: '/api/chat'
+      preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface PontosRouteChildren {
+  PontosSlugRoute: typeof PontosSlugRoute
+}
+
+const PontosRouteChildren: PontosRouteChildren = {
+  PontosSlugRoute: PontosSlugRoute,
+}
+
+const PontosRouteWithChildren =
+  PontosRoute._addFileChildren(PontosRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AgendaRoute: AgendaRoute,
+  ChatRoute: ChatRoute,
+  GaleriaRoute: GaleriaRoute,
+  HistoriaRoute: HistoriaRoute,
+  MapaRoute: MapaRoute,
+  PontosRoute: PontosRouteWithChildren,
+  RoteiroRoute: RoteiroRoute,
+  ApiChatRoute: ApiChatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
