@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useChat } from "@ai-sdk/react";
-import { DefaultChatTransport } from "ai";
 import { Sparkles, Users, Clock, Heart, ChevronRight, Leaf } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -26,8 +25,10 @@ function RoteiroPage() {
   const [picks, setPicks] = useState<string[]>([]);
   const [generated, setGenerated] = useState(false);
 
-  const { messages, sendMessage, status } = useChat({
-    transport: new DefaultChatTransport({ api: "/api/chat" }),
+  // CORREÇÃO 1: Removido o DefaultChatTransport e passando a API direto.
+  // Mudamos 'sendMessage' para 'append', que é o método correto do Vercel AI SDK.
+  const { messages, append, status } = useChat({
+    api: "/api/chat",
   });
 
   function togglePick(i: string) {
@@ -41,11 +42,18 @@ Duração: ${duration}
 Interesses: ${picks.join(", ") || "variados"}.
 
 Organize por dia, com horários sugeridos, pontos turísticos específicos da cidade, sugestões de restaurantes, dicas práticas e estimativa de custos. Use markdown com títulos e listas.`;
+    
     setGenerated(true);
-    await sendMessage({ text: prompt });
+    // CORREÇÃO 2: Usando o append no formato padrão da biblioteca
+    await append({ role: 'user', content: prompt });
   }
 
-  const aiText = messages.filter((m) => m.role === "assistant").map((m) => m.parts.map((p) => p.type === "text" ? p.text : "").join("")).join("\n\n");
+  // Pegando apenas o texto do assistente (ajustado para a propriedade 'content' padrão)
+  const aiText = messages
+    .filter((m) => m.role === "assistant")
+    .map((m) => m.content)
+    .join("\n\n");
+    
   const isLoading = status === "submitted" || status === "streaming";
 
   return (
